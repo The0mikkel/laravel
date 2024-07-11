@@ -1,0 +1,36 @@
+name: Docker build and release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      version_short: ${{ steps.version.outputs.version_short }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Get version
+        id: version
+        run: | 
+          echo "::set-output name=version::$(cat version.txt)"
+          echo "::set-output name=version_short::$(cat version.txt | cut -d. -f1,2)"
+
+  docker:
+    name: Docker build and release
+    uses: the0mikkel/ci/.github/workflows/docker.yml@v1.1.4
+    permissions:
+      contents: read
+      packages: write
+    needs: version
+    with:
+      tags: >-
+        type=raw,value=${{ needs.version.outputs.version_short }}
+        type=semver,value=${{ needs.version.outputs.version }}
+        type=semver,value=${{ needs.version.outputs.version }}-apache
+        type=semver,value=latest
