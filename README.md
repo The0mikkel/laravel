@@ -40,6 +40,6 @@ RUN npm install && npm run build && rm -rf node_modules && composer install --no
 Versioning is based on the PHP version and uses the latest Apache version for that PHP version, provided by the official PHP docker image.
 
 - `latest` - Latest version of Laravel
-- `8.3`, `8.3.X`, `8.3.X-apache` - PHP 8.3 with Apache
+- `8.3`, `8.3.X` - PHP 8.3 with Apache
 
 *Only the "latest" version of PHP is updated. See the latest version being updated in `versions.txt`.*
