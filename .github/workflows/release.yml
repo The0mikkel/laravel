@@ -18,8 +18,10 @@ jobs:
       - name: Get version
         id: version
         run: | 
-          echo "version=$(cat version.txt)" >> "$GITHUB_OUTPUT"
-          echo "version_short=$(cat version.txt | cut -d. -f1,2)" >> "$GITHUB_OUTPUT"
+          VERSION=cat version.txt
+          echo "Current version: $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "version_short=$(echo $VERSION | cut -d. -f1,2)" >> "$GITHUB_OUTPUT"
 
   docker:
     name: Docker build and release
@@ -30,7 +32,7 @@ jobs:
     needs: version
     with:
       tags: >-
-        type=raw,value=${{ needs.version.outputs.version_short }}
-        type=raw,value=${{ needs.version.outputs.version }}
-        type=raw,value=${{ needs.version.outputs.version }}-apache
-        type=raw,value=latest
+        ${{ needs.version.outputs.version_short }}
+        ${{ needs.version.outputs.version }}
+        ${{ needs.version.outputs.version }}-apache
+        type=raw,value=latest,enable={{is_default_branch}}
