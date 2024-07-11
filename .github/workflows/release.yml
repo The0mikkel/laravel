@@ -32,7 +32,7 @@ jobs:
     needs: version
     with:
       tags: >-
-        ${{ needs.version.outputs.version_short }}
-        ${{ needs.version.outputs.version }}
-        ${{ needs.version.outputs.version }}-apache
+        type=semver,version=${{ needs.version.outputs.version_short }}
+        type=semver,version=${{ needs.version.outputs.version }}
+        type=semver,version=${{ needs.version.outputs.version }}-apache
         type=raw,value=latest,enable={{is_default_branch}}
