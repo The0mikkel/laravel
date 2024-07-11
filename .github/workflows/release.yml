@@ -18,8 +18,8 @@ jobs:
       - name: Get version
         id: version
         run: | 
-          echo "::set-output name=version::$(cat version.txt)"
-          echo "::set-output name=version_short::$(cat version.txt | cut -d. -f1,2)"
+          echo "version=$(cat version.txt)" >> "$GITHUB_OUTPUT"
+          echo "version_short=$(cat version.txt | cut -d. -f1,2)" >> "$GITHUB_OUTPUT"
 
   docker:
     name: Docker build and release
@@ -31,6 +31,6 @@ jobs:
     with:
       tags: >-
         type=raw,value=${{ needs.version.outputs.version_short }}
-        type=semver,value=${{ needs.version.outputs.version }}
-        type=semver,value=${{ needs.version.outputs.version }}-apache
-        type=semver,value=latest
+        type=raw,value=${{ needs.version.outputs.version }}
+        type=raw,value=${{ needs.version.outputs.version }}-apache
+        type=raw,value=latest
