@@ -70,10 +70,6 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
 	echo "\nServerName 127.0.0.1" >> /etc/apache2/apache2.conf; \
 	echo "\nServerSignature Off\nServerTokens Prod\nFileETag None" >> /etc/apache2/apache2.conf
 
-# Set the timezone
-ARG TZ
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 # Create symlink for public folder to the storage folder
 RUN mkdir -p /var/www/html/public && \
 	mkdir -p /var/www/html/storage/app/public && \
