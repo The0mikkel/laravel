@@ -1,4 +1,4 @@
-FROM php:8.3.19-apache as php
+FROM php:8.4.8RC1-apache as php
 
 LABEL maintainer "Mikkel Albrechtsen <me@themikkel.dk>"
 
