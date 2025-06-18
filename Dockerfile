@@ -67,6 +67,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
 	&& sed -i 's/post_max_size = .*/post_max_size = 100M/' "$PHP_INI_DIR/php.ini" \
 	&& sed -i 's/;opcache.enable=1/opcache.enable=1/' "$PHP_INI_DIR/php.ini" \
 	&& sed -i 's/;expose_php = On/expose_php = Off/' "$PHP_INI_DIR/php.ini" \
+	&& sed -i 's/;max_input_vars = 1000/max_input_vars = 10000/' "$PHP_INI_DIR/php.ini" \
 	echo "\nServerName 127.0.0.1" >> /etc/apache2/apache2.conf; \
 	echo "\nServerSignature Off\nServerTokens Prod\nFileETag None" >> /etc/apache2/apache2.conf
 
