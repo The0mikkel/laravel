@@ -1,6 +1,6 @@
-FROM php:8.3.22-apache as php
+FROM php:8.3.23-apache AS php
 
-LABEL maintainer "Mikkel Albrechtsen <me@themikkel.dk>"
+LABEL maintainer="Mikkel Albrechtsen <me@themikkel.dk>"
 
 # Handle Version
 ARG VERSION="Development"
